@@ -1,0 +1,41 @@
+version: '3.4'
+services:
+  laradockdb:
+    image: mysql:5.7.29
+    platform: linux/x86_64
+    container_name: laradockdb
+    volumes:
+      - ./mysql:/mysql
+    command: --init-file /mysql/db-init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+    restart: always
+    ports:
+      - 3306:3306
+  laradockweb:
+    build:
+      context: ./laradock
+      target: dev
+    container_name: laradockweb
+    volumes:
+      - ./laradock:/var/www/laradock
+    environment:
+      DB_HOST: laradockdb
+      DB_PORT: 3306
+      DB_DATABASE: laradock
+      DB_USERNAME: root
+      DB_PASSWORD: secret
+    restart: always
+  nginx:
+    image: nginx:latest
+    container_name: ladocknginx
+    volumes:
+      - ./laradock:/var/www/laradock
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    depends_on:
+      - "laradockweb"
+    restart: always
+
+

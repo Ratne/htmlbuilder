@@ -1,0 +1,26 @@
+.modal-dialog{
+  max-width: 900px !important;
+}
+.avatar-xs{
+  height: 1.5rem !important;
+}
+.max-w-125{
+  max-width: 125px;
+}
+.max-w-160{
+  max-width: 160px;
+}
+.max-w-225{
+  max-width: 225px;
+}
+@media screen and (min-width: 992px){
+  .h-lg-75{
+    height: 75%;
+  }
+  .w-lg-50{
+    width: 50%;
+  }
+  .w-lg-25{
+    width: 25%;
+  }
+}
